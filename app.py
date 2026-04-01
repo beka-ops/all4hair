@@ -4,11 +4,11 @@ import mysql.connector
 app = Flask(__name__)
 
 db = mysql.connector.connect(
-    host="metro.proxy.rlwy.net:53259",
+    host="mysql.railway.internal",
     port=3306,
     user="root",
     password="uKSShOJARvmovKVAfmFDwTRigYuVxItu",
-    database="all4hair"
+    database="railway"
 )
 
 @app.route('/')
