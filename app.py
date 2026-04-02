@@ -13,7 +13,7 @@ db = mysql.connector.connect(
 
 @app.route('/')
 def home():
-    return 'Flask is working!'
+    return redirect(url_for('view_customer'))
 @app.route('/c_register', methods=['GET', 'POST'])
 def c_register():
     if request.method == 'POST':
