@@ -1,10 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Providers</title>
 </head>
 <body>
-$END$
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+    <div class ="container-xxl">
+        <span class="fw-bold text-secondary">
+            ALL4HAIR
+        </span>
+    </div>
+</nav> </br>
+
+    <h3>View Providers</h3></br>
+
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Business Name</th>
+            <th>Email Address</th>
+            <th>Phone Number</th>
+            <th>Status</th>
+            <th>Delete User</th>
+            <th>Update User</th>
+        </tr>
+        {% for provider in providers %}
+        <tr>
+            <td>{{provider[1]}}</td>
+            <td>{{provider[2]}}</td>
+            <td>{{provider[3]}}</td>
+            <td>{{provider[4]}}</td>
+            <td>{{provider[5]}}</td>
+            <td>{{provider[6]}}</td>
+            <td><form action="/delete_provider" method="POST">
+                    <input type="hidden" name="provider_id" value={{ provider [0] }}>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+            <td><form action="/p_modify" method="GET">
+                    <input type="hidden" name="provider_id" value={{ provider [0] }}>
+                    <button type="submit" class="btn btn-warning">Update</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br><br>
+    <a href="/p_register">
+        <button type="submit" class="btn btn-primary">Register User</button>
+    </a><br>
+
+
 </body>
 </html>
