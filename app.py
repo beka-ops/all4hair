@@ -1,4 +1,3 @@
-from absl.logging import exception
 from flask import Flask, redirect, render_template, request, url_for, session
 from routes.customer import get_all_customers, delete_customers, create_customer, update_customer, pull_update_customer
 from routes.service import get_all_services, create_services, delete_services, pull_update_service, update_services
