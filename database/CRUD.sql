@@ -36,7 +36,7 @@ create table if not exists providers (
 );
 
 -- Add Sample Data
-insert into providers (firstName, lastName, businessName, emailAddress, phoneNumber) values
+insert into providers (firstName, lastName, businessName, emailAddress, phoneNumber, providerStatus) values
 ('Nichole', 'Matthews', 'Nicky Hair Salon','nichole.matthews@nickyhair.com', '704-908-2394', 'Active'),
 ('Lewis', 'Fanklin', 'Lewis Barber Shop', 'lewiee@gmail.com', '394-209-20398', 'Active'),
 ('Marie', 'King', 'Maries Braiders', 'marie.king@gmail.com', '202-192-3920', 'Active'),
