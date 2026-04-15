@@ -59,7 +59,8 @@ create table if not exists location (
 insert into location (streetName, city, state, zipCode) values
 ('Jefferson Rd','Matthew','NC','28937'),
 ('Hilldale Way','Concord','NY','70897'),
-('Meadows Ln','Shoreview','AL','43237');
+('Meadows Ln','Shoreview','AL','43237'),
+('MikeWidow Ln','Oxmoor','LS','33347');
 
 
 -- Create a Provider has Location
