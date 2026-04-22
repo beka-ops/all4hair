@@ -73,7 +73,6 @@ create table if not exists provider_has_location (
     primary key (provider_id, location_id)
 );
 
-
 -- Create a Provider has Service
 
 create table if not exists provider_has_service (
@@ -160,4 +159,3 @@ values
 (5, 'Amazing braids, will definitely book again!', 1),
 (4, 'Great service, very professional', 2),
 (3, 'Good but took longer than expected', 3);
-
