@@ -2,6 +2,8 @@ from flask import Flask, redirect, render_template, request, url_for, session
 from routes.customer import get_all_customers, delete_customers, create_customer, update_customer, pull_update_customer
 from routes.service import get_all_services, create_services, delete_services, pull_update_service, update_services
 from routes.provider import get_all_providers, delete_provider, create_provider, pull_update_provider, update_provider, pull_update_location
+from routes.provider_has_services import (get_all_providers_assign, get_all_services_assign, add_provider_has_services, listing,
+                                          add_favorite_ps, create_booking, view_appt, update_booking, pull_update_booking)
 import mysql.connector
 from mysql.connector import errors
 
@@ -15,21 +17,22 @@ db = mysql.connector.connect(
     password="IZvzxNoSLdklFQnVjANxvxClFxRENfcO",
     database="railway"
 )
-""""
+"""
+
 db = mysql.connector.connect(
     host="localhost",
     user="root",
     password="d7?NV8',6K3M",
     database="all4hair"
-)"""
-
+)
+"""
 def get_cursor():
     db.reconnect()
     return db.cursor()
 
 @app.route('/')
 def home():
-    return redirect(url_for('view_providers'))
+    return redirect(url_for('view_booking'))
 
 @app.route('/c_register', methods=['GET', 'POST'])
 def c_register():
@@ -148,6 +151,70 @@ def p_modify():
         update_provider(cursor)
         db.commit()
         return redirect(url_for('view_providers'))
+
+
+@app.route('/assign_services', methods=['GET', 'POST'])
+def assign_services():
+    if request.method == 'GET':
+        cursor = get_cursor()
+        result_1 = get_all_providers_assign(cursor)
+        result_2 = get_all_services_assign(cursor)
+        return render_template('assign_service.html', providers=result_1, services=result_2)
+    elif request.method == 'POST':
+        cursor = get_cursor()
+        add_provider_has_services(cursor)
+        db.commit()
+        return redirect(url_for('assign_services'))
+
+@app.route('/listing', methods=['GET', 'POST'])
+def provider_service_listing():
+    if request.method == 'GET':
+        cursor = get_cursor()
+        results = listing(cursor)
+        result_cust = get_all_customers(cursor)
+        return render_template('psl_view.html', psl=results, customers=result_cust)
+
+@app.route('/add_favs', methods=['POST'])
+def add_favor():
+    if request.method == 'POST':
+        cursor = get_cursor()
+        result = add_favorite_ps(cursor)
+        db.commit()
+        return redirect(url_for('provider_service_listing'))
+
+@app.route('/booking', methods=['GET', 'POST'])
+def add_booking():
+    if request.method == 'GET':
+        provider_info = request.args.get('provider_id')
+        service_info = request.args.get('service_id')
+        location_info = request.args.get('location_id')
+        customer_info = request.args.get('customer_id')
+        return render_template('appt.html', provider_id=provider_info, service_id=service_info, location_id=location_info, customer_id=customer_info)
+    elif request.method == 'POST':
+        cursor = get_cursor()
+        result = create_booking(cursor)
+        db.commit()
+        return redirect(url_for('provider_service_listing'))
+
+@app.route('/view_booking', methods=['GET', 'POST'])
+def view_booking():
+    if request.method == 'GET':
+        cursor = get_cursor()
+        result = view_appt(cursor)
+        return render_template('bookings.html', booking=result)
+
+@app.route('/b_modify', methods=['GET', 'POST'])
+def b_modify():
+    if request.method == 'GET':
+        booking_info = request.args.get('booking_id')
+        cursor = get_cursor()
+        booking = pull_update_booking(cursor, booking_info)
+        return render_template('b_edit.html',booking=booking)
+    elif request.method == 'POST':
+        cursor = get_cursor()
+        update_booking(cursor)
+        db.commit()
+        return redirect(url_for('view_booking'))
 
 
 if __name__ == '__main__':
