@@ -39,31 +39,33 @@
         </div>
     </nav> <br></br>
 
-    <h3>Assign Provider a Service </h3></br>
 
-    <form action="/assign_services" method="POST">
-        <label>Associate Provider: </label>
-        <select name="provider_drop">
-            {% for provider in providers %}
-            <option value="{{ provider[0] }}"> {{ provider[1] }} {{ provider[2] }}</option>
-            {% endfor %}
+    <div class="container mt-5">
+        <h3>Assign Provider a Service </h3></br>
 
-        </select>
+        <form action="/assign_services" method="POST">
+            <label>Associate Provider: </label>
+            <select name="provider_drop">
+                {% for provider in providers %}
+                <option value="{{ provider[0] }}"> {{ provider[1] }} {{ provider[2] }}</option>
+                {% endfor %}
 
-        <label>to service </label>
-        <select name="service_drop">
-            {% for service in services %}
-            <option value="{{ service[0] }}"> {{ service[1] }} {{ service[2] }}</option>
-            {% endfor %}
+            </select>
 
-        </select> <br><br>
+            <label>to service </label>
+            <select name="service_drop">
+                {% for service in services %}
+                <option value="{{ service[0] }}"> {{ service[1] }} {{ service[2] }}</option>
+                {% endfor %}
 
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <br><button type="submit" class="btn btn-primary"> Associate </button><br><br>
-        </div>
+            </select> <br><br>
 
-    </form>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <br><button type="submit" class="btn btn-primary"> Associate </button><br><br>
+            </div>
 
+        </form>
+    </div>
 
 </body>
 </html>
