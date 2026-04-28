@@ -32,7 +32,7 @@ def get_cursor():
 
 @app.route('/')
 def home():
-    return redirect(url_for('view_booking'))
+    return render_template('index.html')
 
 @app.route('/c_register', methods=['GET', 'POST'])
 def c_register():

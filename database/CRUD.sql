@@ -89,7 +89,7 @@ create table if not exists favorites (
     customer_id int not null,
 	provider_id int not null,
     service_id int not null,
-    created_at date not null default (current_date),
+    created_at date not null default current_date,
     foreign key (customer_id) references customer(customer_id),
 	foreign key (provider_id) references providers(provider_id),
     foreign key (service_id) references services(service_id),
@@ -101,15 +101,15 @@ insert into favorites (customer_id, provider_id, service_id, created_at) values 
 -- Create Booking
 
 create table if not exists booking (
-    booking_id int not null auto_increment,
+    booking_id int auto_increment,
     booking_date datetime not null,
-    status enum('PENDING', 'CONFIRMED', 'CANCELLED', 'COMPLETED'),
+    status enum('PENDING', 'CONFIRMED', 'CANCELLED', 'COMPLETED') default 'PENDING',
     customer_id int not null,
 	provider_id int not null,
     service_id int not null,
     location_id int not null,
-    created_at datetime not null default current_timestamp,
-    updated_at datetime not null default current_timestamp on update current_timestamp,
+    created_at datetime default current_timestamp,
+    updated_at datetime default current_timestamp on update current_timestamp,
     foreign key (customer_id) references customer(customer_id),
 	foreign key (provider_id) references providers(provider_id),
     foreign key (service_id) references services(service_id),
