@@ -46,3 +46,7 @@ def pull_update_booking(cursor, booking_id):
 def update_booking(cursor):
     cursor.execute("update booking set booking_date=%s, status=%s where booking_id=%s", (request.form['book_date'], request.form['b_status'], request.form['booking_id']))
     return cursor.fetchall()
+
+def payment_history(cursor):
+    cursor.execute("select * from payment_history")
+    return cursor.fetchall()

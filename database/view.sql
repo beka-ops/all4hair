@@ -12,3 +12,11 @@ create view booked_appointments as
 	join providers p on b.provider_id=p.provider_id
 	join services s on b.service_id=s.service_id
 	join location l on b.location_id=l.location_id;
+
+create view pay_history as
+    select concat(p.firstName," ",p.lastName) as 'Provider Name', concat(c.firstName," ",c.lastName) as 'Customer Name', b.booking_date as 'Booking Date', s.serviceName as 'Service Name',
+	    ph.payment_status as 'Status', s.listedPrice as 'Amount'
+	from payment_history ph join booking b on ph.booking_id=b.booking_id
+	join customer c on b.customer_id=c.customer_id
+	join providers p on b.provider_id=p.provider_id
+	join services s on b.service_id=s.service_id

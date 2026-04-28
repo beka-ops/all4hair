@@ -3,7 +3,7 @@ from routes.customer import get_all_customers, delete_customers, create_customer
 from routes.service import get_all_services, create_services, delete_services, pull_update_service, update_services
 from routes.provider import get_all_providers, delete_provider, create_provider, pull_update_provider, update_provider, pull_update_location
 from routes.provider_has_services import (get_all_providers_assign, get_all_services_assign, add_provider_has_services, listing,
-                                          add_favorite_ps, create_booking, view_appt, update_booking, pull_update_booking)
+                                          add_favorite_ps, create_booking, view_appt, update_booking, pull_update_booking, payment_history)
 import mysql.connector
 from mysql.connector import errors
 
@@ -216,6 +216,11 @@ def b_modify():
         db.commit()
         return redirect(url_for('view_booking'))
 
+@app.route('/paid', methods=['GET'])
+def view_pay_hist():
+    cursor = get_cursor()
+    results = payment_history(cursor)
+    return render_template('payment_history.html', pay_history = results)
 
 if __name__ == '__main__':
     app.run(debug=True)
