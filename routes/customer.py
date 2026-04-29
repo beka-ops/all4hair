@@ -37,3 +37,8 @@ def get_customer_favorites(cursor, customer_id):
     cursor.callproc('favorite_provider', [customer_id])
     for result in cursor.stored_results():
         return result.fetchall()
+
+def get_customer_bookings(cursor, customer_id):
+    cursor.callproc('booking_per_customer', [customer_id])
+    for result in cursor.stored_results():
+        return result.fetchall()

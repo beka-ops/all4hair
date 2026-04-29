@@ -1,5 +1,5 @@
 from flask import Flask, redirect, render_template, request, url_for, session
-from routes.customer import get_all_customers, delete_customers, create_customer, update_customer, pull_update_customer, get_customer_favorites
+from routes.customer import get_all_customers, delete_customers, create_customer, update_customer, pull_update_customer, get_customer_favorites, get_customer_bookings
 from routes.service import get_all_services, create_services, delete_services, pull_update_service, update_services
 from routes.provider import get_all_providers, delete_provider, create_provider, pull_update_provider, update_provider, pull_update_location
 from routes.provider_has_services import (get_all_providers_assign, get_all_services_assign, add_provider_has_services, listing,
@@ -68,7 +68,8 @@ def c_modify():
         cursor = get_cursor()
         results = pull_update_customer(cursor)
         favorites = get_customer_favorites(cursor, customer_id)
-        return render_template('c_edit.html', customer=results, favorites=favorites)
+        bookings = get_customer_bookings(cursor, customer_id)
+        return render_template('c_edit.html', customer=results, favorites=favorites, bookings=bookings)
     elif request.method == 'POST':
         cursor = get_cursor()
         update_customer(cursor)
