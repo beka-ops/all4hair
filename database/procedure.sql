@@ -27,3 +27,18 @@ end //
 delimiter ;
 
 call booking_per_customer(7);
+
+
+-- Favorite Provider
+
+delimiter //
+create procedure favorite_provider(in c_customer_id int)
+begin
+	select concat(c.firstName, ' ',c.lastName) as 'Customer Name', concat(p.firstName, ' ',p.lastName) as 'Provider Name',
+	       s.serviceName as 'Service Name'
+    from favorites f join customer c on c.customer_id=f.customer_id
+        join providers p on f.provider_id=p.provider_id
+        join services s on f.service_id=s.service_id
+	where c.customer_id=c_customer_id;
+end //
+delimiter ;

@@ -61,6 +61,8 @@
             <th>Time</th>
             <th>City</th>
             <th>State</th>
+            <th>Rating</th>
+            <th>Comment</th>
             <th>Favorite</th>
             <th>Book</th>
         </tr>
@@ -73,6 +75,8 @@
             <td>{{list[7]}}</td>
             <td>{{list[8]}}</td>
             <td>{{list[9]}}</td>
+            <td>{{list[10]}}</td>
+            <td>{{list[11]}}</td>
             <td><form action="/add_favs" method="POST">
                     <input type="hidden" name="provider_id" value="{{ list[0] }}">
                     <input type="hidden" name="service_id" value="{{ list[1] }}">

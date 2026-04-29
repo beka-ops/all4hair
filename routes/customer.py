@@ -33,3 +33,6 @@ def update_customer(cursor):
                    request.form['phoneNumber'], request.form['customer_id']))
     return cursor.fetchall()
 
+def favorite_provider(cursor):
+    cursor
+
