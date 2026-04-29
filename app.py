@@ -9,7 +9,7 @@ from mysql.connector import errors
 
 app = Flask(__name__)
 
-
+"""
 db = mysql.connector.connect(
     host="mysql.railway.internal",
     port=3306,
@@ -25,7 +25,7 @@ db = mysql.connector.connect(
     password="d7?NV8',6K3M",
     database="all4hair"
 )
-"""
+
 
 def get_cursor():
     db.reconnect()
@@ -224,6 +224,16 @@ def view_pay_hist():
     cursor = get_cursor()
     results = payment_history(cursor)
     return render_template('payment_history.html', pay_history = results)
+
+@app.route('/reports', methods=['GET'])
+def cust_reports():
+    cursor = get_cursor()
+    cursor.execute("select concat(c.firstName, ' ', c.lastName) as 'Name', count(b.booking_id) as 'Total Booking' from booking b join customer c on b.customer_id=c.customer_id where b.status!='CANCELLED' group by c.customer_id")
+    customer_report = cursor.fetchall()
+    cursor.execute("select concat(p.firstName, ' ', p.lastName) as 'Name', sum(case when ph.payment_status = 'COMPLETED' then ph.paid_price else 0.00 end) as 'Total Revenue', 	count(case when b.booking_date > now() then b.booking_id else null end) as 'Future Booking' from providers p  left join booking b on b.provider_id=p.provider_id left join payment_history ph on ph.booking_id=b.booking_id group by p.provider_id")
+    provider_report = cursor.fetchall()
+    return render_template('reports.html', customer_report, provider_report)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
