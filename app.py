@@ -232,7 +232,7 @@ def cust_reports():
     customer_report = cursor.fetchall()
     cursor.execute("select concat(p.firstName, ' ', p.lastName) as 'Name', sum(case when ph.payment_status = 'COMPLETED' then ph.paid_price else 0.00 end) as 'Total Revenue', 	count(case when b.booking_date > now() then b.booking_id else null end) as 'Future Booking' from providers p  left join booking b on b.provider_id=p.provider_id left join payment_history ph on ph.booking_id=b.booking_id group by p.provider_id")
     provider_report = cursor.fetchall()
-    return render_template('reports.html', customer_report, provider_report)
+    return render_template('reports.html', customer_report=customer_report, provider_report=provider_report)
 
 
 if __name__ == '__main__':
