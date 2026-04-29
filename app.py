@@ -1,5 +1,5 @@
 from flask import Flask, redirect, render_template, request, url_for, session
-from routes.customer import get_all_customers, delete_customers, create_customer, update_customer, pull_update_customer
+from routes.customer import get_all_customers, delete_customers, create_customer, update_customer, pull_update_customer, get_customer_favorites
 from routes.service import get_all_services, create_services, delete_services, pull_update_service, update_services
 from routes.provider import get_all_providers, delete_provider, create_provider, pull_update_provider, update_provider, pull_update_location
 from routes.provider_has_services import (get_all_providers_assign, get_all_services_assign, add_provider_has_services, listing,
@@ -9,7 +9,7 @@ from mysql.connector import errors
 
 app = Flask(__name__)
 
-
+"""
 db = mysql.connector.connect(
     host="mysql.railway.internal",
     port=3306,
@@ -25,7 +25,8 @@ db = mysql.connector.connect(
     password="d7?NV8',6K3M",
     database="all4hair"
 )
-"""
+
+
 def get_cursor():
     db.reconnect()
     return db.cursor()
@@ -63,9 +64,11 @@ def delete_customer():
 @app.route('/c_modify', methods=['GET', 'POST'])
 def c_modify():
     if request.method == 'GET':
+        customer_id = request.args.get('customer_id')
         cursor = get_cursor()
         results = pull_update_customer(cursor)
-        return render_template('c_edit.html', customer=results)
+        favorites = get_customer_favorites(cursor, customer_id)
+        return render_template('c_edit.html', customer=results, favorites=favorites)
     elif request.method == 'POST':
         cursor = get_cursor()
         update_customer(cursor)

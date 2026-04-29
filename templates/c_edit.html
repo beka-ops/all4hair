@@ -7,15 +7,10 @@
 </head>
 <body>
 
-<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-    <div class ="container-xxl">
-        <span class="fw-bold text-secondary">
-            ALL4HAIR
-        </span>
-    </div>
-</nav>
 
 <div class="container mt-4">
+
+    <h5>Update Customer Details</h5>
     <form action="/c_modify" method="POST">
 
         <label for="fname">First name:</label><br>
@@ -32,7 +27,23 @@
 
         <br><input type="hidden" name="customer_id" value={{ customer[0][0] }}>
         <button type="submit" class="btn btn-warning">Update</button>
-    </form>
+    </form> <br><br>
+
+    <h5 style="color: #6b5816;">My Favorites</h5>
+    <table class="table table-striped">
+        <tr>
+            <th>Provider</th>
+            <th>Service</th>
+        </tr>
+        {% for fav in favorites %}
+        <tr>
+            <td>{{ fav[1] }}</td>
+            <td>{{ fav[2] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
 </div>
 
 </body>
