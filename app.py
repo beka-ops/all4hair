@@ -9,7 +9,7 @@ from mysql.connector import errors
 
 app = Flask(__name__)
 
-"""
+
 db = mysql.connector.connect(
     host="mysql.railway.internal",
     port=3306,
@@ -25,7 +25,7 @@ db = mysql.connector.connect(
     password="d7?NV8',6K3M",
     database="all4hair"
 )
-
+"""
 
 def get_cursor():
     db.reconnect()
