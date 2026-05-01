@@ -175,12 +175,18 @@ def p_modify():
         cursor = get_cursor()
         results = pull_update_provider(cursor)
         res_loc = pull_update_location(cursor)
-        return render_template('p_edit.html', provider=results, location=res_loc)
+        return render_template('p_edit.html', provider=results, location=res_loc, error=None)
     elif request.method == 'POST':
-        cursor = get_cursor()
-        update_provider(cursor)
-        db.commit()
-        return redirect(url_for('view_providers'))
+        try:
+            cursor = get_cursor()
+            update_provider(cursor)
+            db.commit()
+            return redirect(url_for('view_providers'))
+        except errors.IntegrityError:
+            cursor = get_cursor()
+            results = pull_update_provider(cursor)
+            res_loc = pull_update_location(cursor)
+            return render_template('p_edit.html', provider=results, location=res_loc, error="Make sure you are using a unique email address.")
 
 
 @app.route('/assign_services', methods=['GET', 'POST'])
