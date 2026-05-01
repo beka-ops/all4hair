@@ -7,31 +7,27 @@
 </head>
 <body>
 
-<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-    <div class ="container-xxl">
-        <span class="fw-bold text-secondary">
-            ALL4HAIR
-        </span>
-    </div>
-</nav>
+
 
 <div class="container mt-4">
     <form action="/p_modify" method="POST">
 
+        <br><h5 style="color: #6b5816;">Provider Details</h5><br>
+
         <label for="fname">First name:</label><br>
-          <input type="text" class="form-control" id="firstName" name="firstName" value={{ provider[0][1] }} required><br>
+          <input type="text" class="form-control" id="fname" name="firstName" value="{{ provider[0][1] }}" required><br>
 
         <label for="lname">Last name:</label><br>
-          <input type="text" class="form-control" id="lastName" name="lastName" value={{ provider[0][2] }} required><br>
+          <input type="text" class="form-control" id="lname" name="lastName" value="{{ provider[0][2] }}" required><br>
 
         <label for="bname" class="form-label">Business Name:</label><br>
-          <input type="text" class="form-control" id="businessName" name="businessName" value={{ provider[0][3] }} required><br>
+          <input type="text" class="form-control" id="bname" name="businessName" value="{{ provider[0][3] }}" required><br>
 
         <label for="email">Email Address:</label><br>
-          <input type="text" class="form-control" id="email" name="emailAddress" value={{ provider[0][4] }} required><br>
+          <input type="text" class="form-control" id="email" name="emailAddress" value="{{ provider[0][4] }}" required><br>
 
         <label for="pnumber">Phone Number:</label><br>
-          <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value={{ provider[0][5] }} required><br>
+          <input type="text" class="form-control" id="pnumber" name="phoneNumber" value="{{ provider[0][5] }}" required><br>
 
         <label for="pstatus" class="form-label">Status:</label><br>
         <select name="pstatus" id="pstatus">
@@ -39,16 +35,16 @@
             <option value="inactive">Inactive</option>
         </select><br><br>
 
-        <br><h5>Location</h5><br>
+        <br><h5 style="color: #6b5816;">Location</h5><br>
 
         <label for="sname" class="form-label">Street Name:</label>
-        <input type="text" class="form-control" id="sname" name="streetName" value={{ location[0][1] }} required><br>
+        <input type="text" class="form-control" id="sname" name="streetName" value="{{ location[0][1] }}" required><br>
 
         <label for="cname" class="from-label">City:</label>
-        <input type="text" class="form-control" id="cname" name="cityName" value={{ location[0][2] }} required><br>
+        <input type="text" class="form-control" id="cname" name="cityName" value="{{ location[0][2] }}" required><br>
 
         <label for="stname" class="from-label">State:</label>
-        <select id="stname" name="stateName" value={{ location[0][3] }}>
+        <select id="stname" name="stateName" value="{{ location[0][3] }}">
             <option value="AL">Alabama</option>
             <option value="AK">Alaska</option>
             <option value="AZ">Arizona</option>
@@ -104,11 +100,11 @@
 
 
         <label for="zip" class="from-label" >Zip Code:</label>
-        <input type="number" class="form-control" id="zip" name="zipCode" value={{ location[0][4] }} required><br>
+        <input type="number" class="form-control" id="zip" name="zipCode" value="{{ location[0][4] }}" required><br>
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <br><input type="hidden" name="provider_id" value={{ provider[0][0] }}>
-            <input type="hidden" name="location_id" value={{ location[0][0] }}>
+            <br><input type="hidden" name="provider_id" value="{{ provider[0][0]" }}>
+            <input type="hidden" name="location_id" value="{{ location[0][0]" }}>
             <button type="submit" class="btn btn-warning">Update</button>
         </div>
 
