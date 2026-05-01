@@ -5,6 +5,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Provider and Services</title>
 </head>
+
+<script>
+function updateCustomerId() {
+    var customerId = document.getElementById('customer_select').value;
+    var fields = document.querySelectorAll('.customer_id_field');
+    fields.forEach(function(field) {
+        field.value = customerId;
+    });
+}
+</script>
+
 <body>
     <nav class="navbar navbar-expand-lg" style="background-color: #91bdff;">
         <div class="container-xxl">
@@ -42,7 +53,7 @@
 
     <h5 style="color: #6b5816;">Customer</h5></br>
     <label>I am: </label>
-    <select name="c_id">
+    <select name="c_id" onchange="updateCustomerId()">
         {% for customer in customers %}
             <option value="{{ customer[0] }}">{{ customer[1] }} {{ customer[2] }}</option>
         {% endfor %}
@@ -78,7 +89,7 @@
             <td><form action="/add_favs" method="POST">
                     <input type="hidden" name="provider_id" value="{{ list[1] }}">
                     <input type="hidden" name="service_id" value="{{ list[2] }}">
-                    <input type="hidden" name="customer_id" value="5">  <!-- HARDCODED VALUE CURRENTLY -->
+                    <input type="hidden" name="customer_id" class="customer_id_field" value="">  <!-- Trying something -->
                     <button type="submit" class="btn btn-danger">Favorite</button>
                 </form>
             </td>
