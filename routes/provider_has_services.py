@@ -48,5 +48,5 @@ def update_booking(cursor):
     return cursor.fetchall()
 
 def payment_history(cursor):
-    cursor.execute("select * from payment_history")
+    cursor.execute("select * from pay_history")
     return cursor.fetchall()
