@@ -6,13 +6,13 @@
     <title>Customer Registration</title>
 </head>
 <body>
-<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-    <div class ="container-xxl">
-        <span class="fw-bold text-secondary">
-            ALL4HAIR
-        </span>
+
+
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
     </div>
-</nav>
+    {% endif %}
 
 <div class="container mt-4">
     <form action="/c_register" method="POST">

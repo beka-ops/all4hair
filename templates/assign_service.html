@@ -39,6 +39,11 @@
         </div>
     </nav> <br></br>
 
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endif %}
 
     <div class="container mt-5">
         <h5 style="color: #6b5816;">Assign Provider a Service </h5></br>

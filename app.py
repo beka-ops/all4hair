@@ -44,7 +44,7 @@ def c_register():
             db.commit()
             return redirect(url_for('view_customer'))
         except errors.IntegrityError:
-            return render_template('c_register.html', error="The email has been entered before, please try again later.")
+            return render_template('c_register.html', error="The email has been entered before, please try again.")
     elif request.method == 'GET':
         return render_template('c_register.html')
 
@@ -141,12 +141,15 @@ def delete_providers():
 @app.route('/p_register', methods=['GET', 'POST'])
 def register_provider():
     if request.method == 'POST':
-        cursor = get_cursor()
-        create_provider(cursor)
-        db.commit()
-        return redirect(url_for('view_providers'))
+        try:
+            cursor = get_cursor()
+            create_provider(cursor)
+            db.commit()
+            return redirect(url_for('view_providers'))
+        except errors.IntegrityError:
+            return render_template('p_register.html', error="The email has been entered before, please try again.")
     elif request.method == 'GET':
-        return render_template('p_register.html')
+        return render_template('p_register.html', error=None)
 
 @app.route('/p_modify', methods=['GET', 'POST'])
 def p_modify():
@@ -168,12 +171,18 @@ def assign_services():
         cursor = get_cursor()
         result_1 = get_all_providers_assign(cursor)
         result_2 = get_all_services_assign(cursor)
-        return render_template('assign_service.html', providers=result_1, services=result_2)
+        return render_template('assign_service.html', providers=result_1, services=result_2, error=None)
     elif request.method == 'POST':
-        cursor = get_cursor()
-        add_provider_has_services(cursor)
-        db.commit()
-        return redirect(url_for('assign_services'))
+        try:
+            cursor = get_cursor()
+            add_provider_has_services(cursor)
+            db.commit()
+            return redirect(url_for('assign_services'))
+        except errors.IntegrityError:
+            cursor = get_cursor()
+            result_1 = get_all_providers_assign(cursor)
+            result_2 = get_all_services_assign(cursor)
+            return render_template('assign_service.html', providers=result_1, services=result_2, error="The Provider already provides this service. Please pick a new service.")
 
 @app.route('/listing', methods=['GET', 'POST'])
 def provider_service_listing():
@@ -181,15 +190,20 @@ def provider_service_listing():
         cursor = get_cursor()
         results = listing(cursor)
         result_cust = get_all_customers(cursor)
-        return render_template('psl_view.html', psl=results, customers=result_cust)
+        return render_template('psl_view.html', psl=results, customers=result_cust, error=None)
 
 @app.route('/add_favs', methods=['POST'])
 def add_favor():
-    if request.method == 'POST':
+    try:
         cursor = get_cursor()
         result = add_favorite_ps(cursor)
         db.commit()
         return redirect(url_for('provider_service_listing'))
+    except errors.IntegrityError:
+        cursor = get_cursor()
+        results = listing(cursor)
+        result_cust = get_all_customers(cursor)
+        return render_template('psl_view.html', psl=results, customers=result_cust, error="Customer has already liked <3 this provider! Pick another one ;)")
 
 @app.route('/booking', methods=['GET', 'POST'])
 def add_booking():
