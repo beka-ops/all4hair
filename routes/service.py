@@ -19,8 +19,7 @@ def delete_services(cursor):
     cursor.execute("delete from services where service_id=%s", (request.form['service_id'],))
     return cursor.fetchall()
 
-# Pull the
-
+# Pull the Services
 def pull_update_service(cursor):
     cursor.execute("select * from services where service_id=%s", (request.args.get('service_id'), ))
     return cursor.fetchall()

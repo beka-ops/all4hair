@@ -82,7 +82,7 @@ def c_modify():
 def view_services():
     cursor = get_cursor()
     results = get_all_services(cursor)
-    return render_template('services.html', services = results)
+    return render_template('services.html', services = results, error=None)
 
 @app.route('/s_register', methods=['GET', 'POST'])
 def register_service():
@@ -98,10 +98,13 @@ def register_service():
 
 @app.route('/delete_service', methods=['POST'])
 def delete_service():
-    cursor = get_cursor()
-    results = delete_services(cursor)
-    db.commit()
-    return redirect(url_for('view_services'))
+    try:
+        cursor = get_cursor()
+        results = delete_services(cursor)
+        db.commit()
+        return redirect(url_for('view_services'))
+    except errors.IntegrityError:
+        return render_template('view_services.html', error="This service is in use, so it cannot be deleted.")
 
 
 @app.route('/s_modify', methods=['GET', 'POST'])
