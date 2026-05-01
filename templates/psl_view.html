@@ -6,16 +6,6 @@
     <title>Provider and Services</title>
 </head>
 
-<script>
-function updateCustomerId() {
-    var customerId = document.getElementById('customer_select').value;
-    var fields = document.querySelectorAll('.customer_id_field');
-    fields.forEach(function(field) {
-        field.value = customerId;
-    });
-}
-</script>
-
 <body onload="updateCustomerId()">
     <nav class="navbar navbar-expand-lg" style="background-color: #91bdff;">
         <div class="container-xxl">
@@ -53,7 +43,7 @@ function updateCustomerId() {
 
     <h5 style="color: #6b5816;">Customer</h5></br>
     <label>I am: </label>
-    <select name="c_id" onchange="updateCustomerId()">
+    <select id="customer_select" name="c_id" onchange="updateCustomerId()">
         {% for customer in customers %}
             <option value="{{ customer[0] }}">{{ customer[1] }} {{ customer[2] }}</option>
         {% endfor %}
@@ -105,6 +95,17 @@ function updateCustomerId() {
         {% endfor %}
     </table>
     </div>
+
+
+    <script>
+    function updateCustomerId() {
+        var customerId = document.getElementById('customer_select').value;
+        var fields = document.querySelectorAll('.customer_id_field');
+        fields.forEach(function(field) {
+            field.value = customerId;
+        });
+    }
+    </script>
 
 </body>
 </html>
