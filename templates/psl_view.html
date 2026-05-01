@@ -79,7 +79,7 @@
             <td><form action="/add_favs" method="POST">
                     <input type="hidden" name="provider_id" value="{{ list[1] }}">
                     <input type="hidden" name="service_id" value="{{ list[2] }}">
-                    <input type="hidden" name="customer_id" class="customer_id_field" value="">  <!-- Trying something -->
+                    <input type="hidden" name="customer_id" class="customer_id_field" value="">
                     <button type="submit" class="btn btn-danger">Favorite</button>
                 </form>
             </td>
@@ -87,7 +87,7 @@
                     <input type="hidden" name="provider_id" value="{{ list[1] }}">
                     <input type="hidden" name="service_id" value="{{ list[2] }}">
                     <input type="hidden" name="location_id" value="{{ list[0] }}">
-                    <input type="hidden" name="customer_id" value="7">  <!-- HARDCODED VALUE CURRENTLY -->
+                    <input type="hidden" name="customer_id" class="customer_id_field" value="">
                     <button type="submit" class="btn btn-primary">Book</button>
                 </form>
             </td>
