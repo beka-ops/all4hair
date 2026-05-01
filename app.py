@@ -104,7 +104,7 @@ def delete_service():
         db.commit()
         return redirect(url_for('view_services'))
     except errors.IntegrityError:
-        return render_template('view_services.html', error="This service is in use, so it cannot be deleted.")
+        return render_template('services.html', error="This service is in use, so it cannot be deleted.")
 
 
 @app.route('/s_modify', methods=['GET', 'POST'])
