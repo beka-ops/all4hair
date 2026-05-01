@@ -52,14 +52,19 @@ def c_register():
 def view_customer():
     cursor = get_cursor()
     results = get_all_customers(cursor)
-    return render_template('customers.html', customers=results)
+    return render_template('customers.html', customers=results, error=None)
 
 @app.route('/delete_customer', methods=['POST'])
 def delete_customer():
-    cursor = get_cursor()
-    results = delete_customers(cursor)
-    db.commit()
-    return redirect(url_for('view_customer'))
+    try:
+        cursor = get_cursor()
+        results = delete_customers(cursor)
+        db.commit()
+        return redirect(url_for('view_customer'))
+    except errors.IntegrityError:
+        cursor = get_cursor()
+        results = get_all_customers(cursor)
+        return render_template('customers.html', customers=results, error="This customer information is in use, so it cannot be deleted.")
 
 @app.route('/c_modify', methods=['GET', 'POST'])
 def c_modify():
@@ -69,12 +74,21 @@ def c_modify():
         results = pull_update_customer(cursor)
         favorites = get_customer_favorites(cursor, customer_id)
         bookings = get_customer_bookings(cursor, customer_id)
-        return render_template('c_edit.html', customer=results, favorites=favorites, bookings=bookings)
+        return render_template('c_edit.html', customer=results, favorites=favorites, bookings=bookings, error=None)
     elif request.method == 'POST':
-        cursor = get_cursor()
-        update_customer(cursor)
-        db.commit()
-        return redirect(url_for('view_customer'))
+        try:
+            cursor = get_cursor()
+            update_customer(cursor)
+            db.commit()
+            return redirect(url_for('view_customer'))
+        except errors.IntegrityError:
+            customer_id = request.args.get('customer_id')
+            cursor = get_cursor()
+            results = pull_update_customer(cursor)
+            favorites = get_customer_favorites(cursor, customer_id)
+            bookings = get_customer_bookings(cursor, customer_id)
+            return render_template('c_edit.html', customer=results, favorites=favorites, bookings=bookings, error="Email has been used before. Try another email.")
+
 
 # Routing services
 
@@ -128,15 +142,19 @@ def view_providers():
     if request.method == 'GET':
         cursor = get_cursor()
         results = get_all_providers(cursor)
-        return render_template('providers.html', providers=results)
+        return render_template('providers.html', providers=results, error=None)
 
 @app.route('/delete_provider', methods=['POST'])
 def delete_providers():
-    if request.method == 'POST':
+    try:
         cursor = get_cursor()
         delete_provider(cursor)
         db.commit()
         return redirect(url_for('view_providers'))
+    except errors.IntegrityError:
+        cursor = get_cursor()
+        results = get_all_providers(cursor)
+        return render_template('providers.html', providers=results, error="This provider information is in use, so it cannot be deleted.")
 
 @app.route('/p_register', methods=['GET', 'POST'])
 def register_provider():

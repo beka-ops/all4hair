@@ -7,6 +7,12 @@
 </head>
 <body>
 
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endif %}
+
 
 <div class="container mt-4">
 
@@ -14,16 +20,16 @@
     <form action="/c_modify" method="POST">
 
         <label for="fname">First name:</label><br>
-          <input type="text" class="form-control" id="firstName" name="firstName" value={{ customer[0][1] }} required><br>
+          <input type="text" class="form-control" id="fname" name="firstName" value={{ customer[0][1] }} required><br>
 
         <label for="lname">Last name:</label><br>
-          <input type="text" class="form-control" id="lastName" name="lastName" value={{ customer[0][2] }} required><br>
+          <input type="text" class="form-control" id="lname" name="lastName" value={{ customer[0][2] }} required><br>
 
         <label for="email">Email Address:</label><br>
           <input type="text" class="form-control" id="email" name="emailAddress" value={{ customer[0][3] }} required><br>
 
         <label for="pnumber">Phone Number:</label><br>
-          <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value={{ customer[0][4] }} required><br>
+          <input type="text" class="form-control" id="pnumber" name="phoneNumber" value={{ customer[0][4] }} required><br>
 
         <br><input type="hidden" name="customer_id" value={{ customer[0][0] }}>
         <button type="submit" class="btn btn-warning">Update</button>
