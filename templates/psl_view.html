@@ -76,16 +76,16 @@
             <td>{{list[9]}}</td>
             <td>{{list[10]}}</td>
             <td><form action="/add_favs" method="POST">
-                    <input type="hidden" name="provider_id" value="{{ list[0] }}">
-                    <input type="hidden" name="service_id" value="{{ list[1] }}">
+                    <input type="hidden" name="provider_id" value="{{ list[1] }}">
+                    <input type="hidden" name="service_id" value="{{ list[2] }}">
                     <input type="hidden" name="customer_id" value="5">  <!-- HARDCODED VALUE CURRENTLY -->
                     <button type="submit" class="btn btn-danger">Favorite</button>
                 </form>
             </td>
             <td><form action="/booking" method="GET">
-                    <input type="hidden" name="provider_id" value={{ list[1] }}>
-                    <input type="hidden" name="service_id" value={{ list[2] }}>
-                    <input type="hidden" name="location_id" value={{ list[0] }}>
+                    <input type="hidden" name="provider_id" value="{{ list[1] }}">
+                    <input type="hidden" name="service_id" value="{{ list[2] }}">
+                    <input type="hidden" name="location_id" value="{{ list[0] }}">
                     <input type="hidden" name="customer_id" value="7">  <!-- HARDCODED VALUE CURRENTLY -->
                     <button type="submit" class="btn btn-primary">Book</button>
                 </form>
